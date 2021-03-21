@@ -1,0 +1,40 @@
+/*@import url(https://fonts.googleapis.com/css?family=Nunito);*/
+
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&family=Montserrat&display=swap');
+
+/*font*/
+.menunav{
+	border-bottom: 1px solid rgba(51,59,27,0.5);
+
+}
+.font1{
+	font-family: 'Comfortaa', cursive;
+}
+
+.font2{
+	font-family: 'Montserrat', sans-serif;
+}
+
+.logo{
+	color: #C4174F;
+}
+
+.fitur{
+	color: #E55175;
+}
+.submenu{
+	color: #EFA1AF;	
+}
+.bodyy{
+	color: rgba(51,59,27,0.8);	
+}
+
+
+
+
+
+/*footer*/
+hr{
+	color:#333B1B;
+}
