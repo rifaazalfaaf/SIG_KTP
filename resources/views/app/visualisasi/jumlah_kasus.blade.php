@@ -134,12 +134,14 @@
     });
   }
 
-  @foreach ($kecamatan as $value)
-    geojson = new L.GeoJSON.AJAX("geojson/{{$value->lokasi_kecamatan}}", {
+ dataKecamatan.forEach(function(itemKecamatan){
+    var url = `http://localhost:8000/geojson/${itemKecamatan.lokasi_kecamatan}`;
+    // console.log(url)
+    geojson = new L.GeoJSON.AJAX(url, {
         style: style, 
         onEachFeature: onEachFeature
     }).addTo(map);
-  @endforeach
+  });
 
   map.attributionControl.addAttribution('Data diambil dari  &copy; <a href="http://census.gov/">Pemerintah Kabupaten Bandung</a>');
 
