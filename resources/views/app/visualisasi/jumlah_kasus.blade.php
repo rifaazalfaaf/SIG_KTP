@@ -117,6 +117,8 @@
 
   var geojson;
 
+  var dataKecamatan = <?php echo json_encode($kecamatan) ?>;
+
   function resetHighlight(e) {
     geojson.resetStyle(e.target);
     info.update();
