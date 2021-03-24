@@ -8,6 +8,9 @@
 	border-bottom: 1px solid rgba(51,59,27,0.5);
 
 }
+.borderatas{
+	border-top: 1px solid rgba(51,59,27,0.5);	
+}
 .font1{
 	font-family: 'Comfortaa', cursive;
 }
@@ -30,6 +33,10 @@
 	color: rgba(51,59,27,0.8);	
 }
 
+.buttonSIG{
+	background-color:  #C4174F;
+	color: white;
+}
 
 
 

@@ -38,7 +38,25 @@
 @endsection
 
 @section('content')
-<div id="map"></div>
+<div class="container">
+  <div class="row m-2" align="center">
+  <div class="form-check-inline col-md-12">
+    <label class="form-check-label col-md-3 font2" for="radio1">
+      <input class="form-check-input" type="radio" name="data" id ="jumlah_kasus" value="jumlah_kasus" checked="checked">Kasus Kekerasan 2019
+    </label>
+    <label class="form-check-label col-md-3 font2" for="radio1">
+      <input class="form-check-input" type="radio" name="data" id="IRT" value="IRT">IRT
+    </label>
+    <label class="form-check-label col-md-3 font2" for="radio1">
+      <input class="form-check-input" type="radio" name="data" id="perempuan_bekerja" value="perempuan_bekerja">Perempuan yang Bekerja
+    </label>  
+    <button type="button" class="btn buttonSIG col-md-3 font2" onclick="displayRadioValue()">
+        Pilih Data
+    </button>
+  </div>
+  </div>
+</div>
+<div class="borderatas" id="map"></div>
 @endsection
 
 
@@ -68,15 +86,52 @@
     return this._div;
   };
 
-  info.update = function (props) {
-    this._div.innerHTML = '<h4>Jumlah Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
-      '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / tahun '
-      : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
-  };
+  // info.update = function (props) {
+  //   this._div.innerHTML = '<h4>Jumlah Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
+  //     '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / tahun '
+  //     : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
+  // };
 
-  info.addTo(map);
+  // info.addTo(map);
+
+  function displayRadioValue() {
+    var data1 = document.getElementById("jumlah_kasus");
+    var data2 = document.getElementById('IRT');
+    var data3 = document.getElementById('perempuan_bekerja');
+    // console.log(data1)
+
+    
+    if(data1.checked){
+    // console.log(data1.checked)
+    
+      info.update = function (props) {
+        this._div.innerHTML = '<h4>Jumlah Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
+          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / ahun '
+          : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
+      };
+      info.addTo(map); 
 
 
+    }else if(data2.checked){
+      info.update = function (props) {
+        this._div.innerHTML = '<h4>Jumlah IRT di Kabupaten Bandung</h4>' +  (props ?
+          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_IRT + ' Orang / Tahun'
+          : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
+      };
+      info.addTo(map); 
+
+
+    }else if(data3.checked){
+      info.update = function (props) {
+        this._div.innerHTML = '<h4>Jumlah Perempuan yang Bekerja di Kabupaten Bandung</h4>' +  (props ?
+          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Perempuan_Bekerja + ' Orang / Tahun'
+          : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
+      };
+      info.addTo(map); 
+
+    }
+  }
+  
   // get color depending on population density value
   function getColor(d) {
     return d > 10 ? '#800026' :
