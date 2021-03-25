@@ -39,18 +39,21 @@
 
 @section('content')
 <div class="container">
-  <div class="row m-2" align="center">
+  <div class="row m-2">
   <div class="form-check-inline col-md-12">
     <label class="form-check-label col-md-3 font2" for="radio1">
       <input class="form-check-input" type="radio" name="data" id ="jumlah_kasus" value="jumlah_kasus" checked="checked">Kasus Kekerasan 2019
     </label>
-    <label class="form-check-label col-md-3 font2" for="radio1">
+    <label class="form-check-label col-md-1 font2" for="radio1">
       <input class="form-check-input" type="radio" name="data" id="IRT" value="IRT">IRT
     </label>
     <label class="form-check-label col-md-3 font2" for="radio1">
       <input class="form-check-input" type="radio" name="data" id="perempuan_bekerja" value="perempuan_bekerja">Perempuan yang Bekerja
     </label>  
-    <button type="button" class="btn buttonSIG col-md-3 font2" onclick="displayRadioValue()">
+    <label class="form-check-label col-md-3 font2" for="radio1">
+      <input class="form-check-input" type="radio" name="data" id="pernikahan_dini" value="pernikahan_dini">Pernikahan Dini
+    </label>  
+    <button type="button" class="btn buttonSIG col-md-2 font2" onclick="displayRadioValue()">
         Pilih Data
     </button>
   </div>
@@ -85,72 +88,216 @@
     this.update();
     return this._div;
   };
+  
+  var legend = L.control({position: 'bottomright'});
 
-  // info.update = function (props) {
-  //   this._div.innerHTML = '<h4>Jumlah Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
-  //     '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / tahun '
-  //     : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
-  // };
-
-  // info.addTo(map);
 
   function displayRadioValue() {
     var data1 = document.getElementById("jumlah_kasus");
     var data2 = document.getElementById('IRT');
     var data3 = document.getElementById('perempuan_bekerja');
-    // console.log(data1)
+    var data4 = document.getElementById('pernikahan_dini');
 
-    
     if(data1.checked){
     // console.log(data1.checked)
-    
       info.update = function (props) {
-        this._div.innerHTML = '<h4>Jumlah Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
-          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / ahun '
-          : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
+        this._div.innerHTML = '<h4>Jumlah Kasus KTP di Kabupaten Bandung Tahun 2019</h4>' +  (props ?
+          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / Tahun '
+          : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
       info.addTo(map); 
 
+      legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 2, 4, 6, 8, 10],
+        labels = [],
+        from, to;
+    
+        for (var i = 0; i < grades.length; i++) {
+          from = grades[i];
+          to = grades[i + 1];
+
+          labels.push(
+            '<i style="background:' + getColor(from + 1) + '"></i> ' +
+            from + (to ? '&ndash;' + to : '+'));
+        }
+
+        div.innerHTML = labels.join('<br>');
+        return div;
+      };
+
+      legend.addTo(map);
 
     }else if(data2.checked){
       info.update = function (props) {
-        this._div.innerHTML = '<h4>Jumlah IRT di Kabupaten Bandung</h4>' +  (props ?
+        this._div.innerHTML = '<h4>Jumlah IRT di Kabupaten Bandung Tahun 2019</h4>' +  (props ?
           '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_IRT + ' Orang / Tahun'
-          : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
+          : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
       info.addTo(map); 
 
+      legend.onAdd = function (map) {        
+        var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 10000, 20000, 30000, 40000, 50000],
+        labels = [],
+        from, to;
 
+        for (var i = 0; i < grades.length; i++) {
+          from = grades[i];
+          to = grades[i + 1];
+
+          labels.push(
+            '<i style="background:' + getColor(from + 1) + '"></i> ' +
+            from + (to ? '&ndash;' + to : '+'));
+        }
+
+        div.innerHTML = labels.join('<br>');
+        return div;
+      };
+
+      legend.addTo(map);
     }else if(data3.checked){
-      info.update = function (props) {
-        this._div.innerHTML = '<h4>Jumlah Perempuan yang Bekerja di Kabupaten Bandung</h4>' +  (props ?
-          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Perempuan_Bekerja + ' Orang / Tahun'
-          : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
+      info.update = function (props) { 
+        this._div.innerHTML = '<h4>Jumlah Perempuan yang Bekerja di Kabupaten Bandung Tahun 2019</h4>' +  (props ?
+          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Perempuan_Bekerja + ' Orang'
+          : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
       info.addTo(map); 
 
+      legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 1000, 2000, 3000, 4000, 5000],
+        labels = [],
+        from, to;    
+
+        for (var i = 0; i < grades.length; i++) {
+          from = grades[i];
+          to = grades[i + 1];
+
+          labels.push(
+            '<i style="background:' + getColor(from + 1) + '"></i> ' +
+            from + (to ? '&ndash;' + to : '+'));
+        }
+
+        div.innerHTML = labels.join('<br>');
+        return div;
+      };
+
+      legend.addTo(map);
+    }else if(data4.checked){
+      info.update = function (props) { 
+        this._div.innerHTML = '<h4>Jumlah Pernikahan Dini di Kabupaten Bandung Tahun 2019</h4>' +  (props ?
+          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Pernikahan_Dini + ' Orang'
+          : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
+      };
+      info.addTo(map); 
+
+      legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0,  2, 4, 6, 8, 10],
+        labels = [],
+        from, to;    
+
+        for (var i = 0; i < grades.length; i++) {
+          from = grades[i];
+          to = grades[i + 1];
+
+          labels.push(
+            '<i style="background:' + getColor(from + 1) + '"></i> ' +
+            from + (to ? '&ndash;' + to : '+'));
+        }
+
+        div.innerHTML = labels.join('<br>');
+        return div;
+      };
+
+      legend.addTo(map);
     }
   }
   
   // get color depending on population density value
   function getColor(d) {
-    return d > 10 ? '#800026' :
-        d > 8  ? '#BD0026' :
-        d > 6  ? '#FC4E2A' :
-        d > 4   ? '#FEB24C' :
-        d > 2   ? '#FED976' :
-              '#FFEDA0';
+    var data1 = document.getElementById("jumlah_kasus");
+    var data2 = document.getElementById('IRT');
+    var data3 = document.getElementById('perempuan_bekerja');
+    var data4 = document.getElementById('pernikahan_dini');
+
+    if(data1.checked){
+      return d > 10 ? '#800026' :
+          d > 8  ? '#BD0026' :
+          d > 6  ? '#FC4E2A' :
+          d > 4   ? '#FEB24C' :
+          d > 2   ? '#FED976' :
+                '#FFEDA0';
+    }else if(data2.checked){
+      return d > 50000 ? '#800026' :
+          d > 40000  ? '#BD0026' :
+          d > 30000  ? '#FC4E2A' :
+          d > 20000   ? '#FEB24C' :
+          d > 10000   ? '#FED976' :
+                '#FFEDA0';
+    }else if(data3.checked){
+      return d > 5000 ? '#800026' :
+          d > 4000  ? '#BD0026' :
+          d > 3000  ? '#FC4E2A' :
+          d > 2000   ? '#FEB24C' :
+          d > 1000   ? '#FED976' :
+                '#FFEDA0';
+    }else if(data4.checked){
+      return d > 10 ? '#800026' :
+          d > 8  ? '#BD0026' :
+          d > 6  ? '#FC4E2A' :
+          d > 4   ? '#FEB24C' :
+          d > 2   ? '#FED976' :
+                '#FFEDA0';
+    }
   }
 
   function style(feature) {
-    return {
-      weight: 2,
-      opacity: 1,
-      color: 'white',
-      dashArray: '3',
-      fillOpacity: 0.7,
-      fillColor: getColor(feature.properties.Jumlah_kasus_2019)
-    };
+    var data1 = document.getElementById("jumlah_kasus");
+    var data2 = document.getElementById('IRT');
+    var data3 = document.getElementById('perempuan_bekerja');
+    var data4 = document.getElementById('pernikahan_dini');
+
+    if(data1.checked){
+      return {
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7,
+        fillColor: getColor(feature.properties.Jumlah_kasus_2019)
+      };
+    }else if(data2.checked){
+      return {
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7,
+        fillColor: getColor(feature.properties.Jumlah_IRT)
+      };
+    }else if(data3.checked){
+      return {
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7,
+        fillColor: getColor(feature.properties.Jumlah_Perempuan_Bekerja)
+      };
+    }else if(data4.checked){
+      return {
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7,
+        fillColor: getColor(feature.properties.Jumlah_Pernikahan_Dini)
+
+      };
+    }
+
   }
 
   function highlightFeature(e) {
@@ -200,32 +347,10 @@
     }).addTo(map);
   });
 
-  map.attributionControl.addAttribution('Data diambil dari  &copy; <a href="http://census.gov/">Pemerintah Kabupaten Bandung</a>');
+  map.attributionControl.addAttribution('Data diambil dari  &copy; <a href="http:///">Pemerintah Kabupaten Bandung</a>');
 
 
-  var legend = L.control({position: 'bottomright'});
 
-  legend.onAdd = function (map) {
-
-    var div = L.DomUtil.create('div', 'info legend'),
-      grades = [0, 2, 4, 6, 8, 10],
-      labels = [],
-      from, to;
-
-    for (var i = 0; i < grades.length; i++) {
-      from = grades[i];
-      to = grades[i + 1];
-
-      labels.push(
-        '<i style="background:' + getColor(from + 1) + '"></i> ' +
-        from + (to ? '&ndash;' + to : '+'));
-    }
-
-    div.innerHTML = labels.join('<br>');
-    return div;
-  };
-
-  legend.addTo(map);
 
 </script>
 @endsection
