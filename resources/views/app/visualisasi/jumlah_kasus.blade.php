@@ -158,7 +158,7 @@
       legend.addTo(map);
     }else if(data3.checked){
       info.update = function (props) { 
-        this._div.innerHTML = '<h4>Jumlah Perempuan yang Bekerja di Kabupaten Bandung Tahun 2019</h4>' +  (props ?
+        this._div.innerHTML = '<h4>Jumlah Perempuan yang Bekerja <br/> di Kabupaten Bandung Tahun 2019</h4>' +  (props ?
           '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Perempuan_Bekerja + ' Orang'
           : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };

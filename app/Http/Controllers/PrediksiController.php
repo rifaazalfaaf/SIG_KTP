@@ -11,6 +11,11 @@ class PrediksiController extends Controller
 {
  	public function index()
     {
-    	return view('app/visualisasi/jumlah_kasus');
+    	return view('app/prediksi/prediksi');
     }   
+
+    public function input_data()
+    {
+    	return view('app/prediksi/input_data');
+    } 
 }

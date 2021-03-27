@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('title','Prediksi Data')
+@section('title','Visualisasi Data')
 
 @section('styles')
   <style>
@@ -39,16 +39,23 @@
 
 @section('content')
 <div id="map"></div>
+<div class="row center mt-5" >
+  <a class="font2" href="{{url('/input_data')}}" style="text-decoration: none;">
+    <button type="button" class="btn btn-outline-danger mr-4"> Input Data</button>
+  </a>
+  <a class="font2" href="{{url('/')}}" style="text-decoration: none;">
+    <button type="button" class="btn btn-outline-danger ml-4">Prediksi Data</button>
+  </a>
+</div>
 @endsection
 
 
 @section('scripts')
 
-<script type="text/javascript" src="js/us-states.js"></script>
-
+<script type="text/javascript" src="js/leaflet.ajax.js"></script>
 <script type="text/javascript">
 
-  var map = L.map('map').setView([37.8, -96], 4);
+  var map = L.map('map').setView([-7.0702032,107.6295788], 10);
 
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
     maxZoom: 18,
@@ -59,15 +66,32 @@
     zoomOffset: -1
   }).addTo(map);
 
+
+  // control that shows state info on hover
+  var info = L.control();
+
+  info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info');
+    this.update();
+    return this._div;
+  };
+
+  info.update = function (props) {
+    this._div.innerHTML = '<h4>Jumlah Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
+      '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / tahun '
+      : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
+  };
+
+  info.addTo(map);
+
+
   // get color depending on population density value
   function getColor(d) {
-    return d > 1000 ? '#800026' :
-        d > 500  ? '#BD0026' :
-        d > 200  ? '#E31A1C' :
-        d > 100  ? '#FC4E2A' :
-        d > 50   ? '#FD8D3C' :
-        d > 20   ? '#FEB24C' :
-        d > 10   ? '#FED976' :
+    return d > 10 ? '#800026' :
+        d > 8  ? '#BD0026' :
+        d > 6  ? '#FC4E2A' :
+        d > 4   ? '#FEB24C' :
+        d > 2   ? '#FED976' :
               '#FFEDA0';
   }
 
@@ -78,49 +102,79 @@
       color: 'white',
       dashArray: '3',
       fillOpacity: 0.7,
-      fillColor: getColor(feature.properties.density)
+      fillColor: getColor(feature.properties.Jumlah_kasus_2019)
     };
   }
 
-  var geojson = L.geoJson(statesData, {
-    style: style,
+  function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+      weight: 5,
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+    }
+
+    info.update(layer.feature.properties);
+  }
+
+  var geojson;
+
+
+  function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+    info.update();
+  }
+
+  function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+  }
+
+  function onEachFeature(feature, layer) {
+    layer.on({
+      mouseover: highlightFeature,
+      mouseout: resetHighlight,
+      click: zoomToFeature
+    });
+  }
+
+  geojson = new L.GeoJSON.AJAX('geojson/bandung.geojson', {
+      style: style, 
+      onEachFeature: onEachFeature
   }).addTo(map);
+  
 
-  var info = L.control();
+  map.attributionControl.addAttribution('Data diambil dari  &copy; <a href="http://census.gov/">Pemerintah Kabupaten Bandung</a>');
 
-  info.onAdd = function (map) {
-      this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-      this.update();
-      return this._div;
-  };
-
-  // method that we will use to update the control based on feature properties passed
-  info.update = function (props) {
-      this._div.innerHTML = '<h4>Jumlah Kasus Kekerasan</h4>' +  (props ?
-          '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
-          : '');
-  };
-
-  info.addTo(map);
 
   var legend = L.control({position: 'bottomright'});
 
   legend.onAdd = function (map) {
 
-      var div = L.DomUtil.create('div', 'info legend'),
-          grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-          labels = [];
+    var div = L.DomUtil.create('div', 'info legend'),
+      grades = [0, 2, 4, 6, 8, 10],
+      labels = [],
+      from, to;
 
-      // loop through our density intervals and generate a label with a colored square for each interval
-      for (var i = 0; i < grades.length; i++) {
-          div.innerHTML +=
-              '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-              grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-      }
+    for (var i = 0; i < grades.length; i++) {
+      from = grades[i];
+      to = grades[i + 1];
 
-      return div;
+      labels.push(
+        '<i style="background:' + getColor(from + 1) + '"></i> ' +
+        from + (to ? '&ndash;' + to : '+'));
+    }
+
+    div.innerHTML = labels.join('<br>');
+    return div;
   };
 
   legend.addTo(map);
+
 </script>
 @endsection
