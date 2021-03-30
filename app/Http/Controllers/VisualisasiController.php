@@ -16,6 +16,6 @@ class VisualisasiController extends Controller
     	$bandung = VisualisasiDataModel::all();
     	// $bandung = DB::table('peta_kecamatan')->get();
 
-    	return view('app/visualisasi/jumlah_kasus',['kecamatan' => $bandung]);
+    	return view('app/visualisasi/visualisasi',['kecamatan' => $bandung]);
     }   
 }

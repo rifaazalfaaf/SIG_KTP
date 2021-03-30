@@ -109,7 +109,7 @@
 
       legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 2, 4, 6, 8, 10],
+        grades = [0, 1, 3],
         labels = [],
         from, to;
     
@@ -138,7 +138,7 @@
 
       legend.onAdd = function (map) {        
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10000, 20000, 30000, 40000, 50000],
+        grades = [0, 24670, 29464],
         labels = [],
         from, to;
 
@@ -166,7 +166,7 @@
 
       legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 1000, 2000, 3000, 4000, 5000],
+        grades = [0, 4943,6668],
         labels = [],
         from, to;    
 
@@ -223,25 +223,17 @@
     var data4 = document.getElementById('pernikahan_dini');
 
     if(data1.checked){
-      return d > 10 ? '#800026' :
-          d > 8  ? '#BD0026' :
-          d > 6  ? '#FC4E2A' :
-          d > 4   ? '#FEB24C' :
-          d > 2   ? '#FED976' :
+      return d > 3 ? '#800026' :
+          // d > 6  ? '#FC4E2A' :
+          d > 1   ? '#FC4E2A' :
                 '#FFEDA0';
     }else if(data2.checked){
-      return d > 50000 ? '#800026' :
-          d > 40000  ? '#BD0026' :
-          d > 30000  ? '#FC4E2A' :
-          d > 20000   ? '#FEB24C' :
-          d > 10000   ? '#FED976' :
+      return d > 29464 ? '#800026' :
+          d > 24670  ? '#FC4E2A' :
                 '#FFEDA0';
     }else if(data3.checked){
-      return d > 5000 ? '#800026' :
-          d > 4000  ? '#BD0026' :
-          d > 3000  ? '#FC4E2A' :
-          d > 2000   ? '#FEB24C' :
-          d > 1000   ? '#FED976' :
+      return d > 6668 ? '#800026' :
+          d > 4943  ? '#FC4E2A' :
                 '#FFEDA0';
     }else if(data4.checked){
       return d > 10 ? '#800026' :
