@@ -40,9 +40,39 @@
 @section('content')
 <div id="map"></div>
 <div class="row center mt-5" >
-  <a class="font2" href="{{url('/input_data')}}" style="text-decoration: none;">
+  {{-- <a class="font2" href="{{url('/input_data')}}" style="text-decoration: none;">
     <button type="button" class="btn btn-outline-danger mr-4"> Input Data</button>
-  </a>
+  </a> --}}
+  <button type="button" class="btn btn-outline-danger mr-5 font2" data-toggle="modal" data-target="#importExcel">
+    Import Excel
+  </button>
+
+  <!-- Import Excel -->
+  <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form method="post" action="{{ route('import') }}" enctype="multipart/form-data">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font2" id="exampleModalLabel">Import Excel</h5>
+          </div>
+          <div class="modal-body">
+
+            {{ csrf_field() }}
+
+            <label class="font2">Pilih file excel</label>
+            <div class="form-group">
+              <input type="file" name="file" required="required">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary font2" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-outline-danger font2">Import</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
   <a class="font2" href="{{url('/')}}" style="text-decoration: none;">
     <button type="button" class="btn btn-outline-danger ml-4">Prediksi Data</button>
   </a>
