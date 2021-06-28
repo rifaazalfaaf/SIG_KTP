@@ -38,11 +38,11 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container mb-0">
   <div class="row m-2">
   <div class="form-check-inline col-md-12">
     <label class="form-check-label col-md-3 font2" for="radio1">
-      <input class="form-check-input" type="radio" name="data" id ="jumlah_kasus" value="jumlah_kasus" checked="checked">Kasus Kekerasan 2019
+      <input class="form-check-input" type="radio" name="data" id ="jumlah_kasus" value="jumlah_kasus" checked="checked">Kasus Kekerasan 
     </label>
     <label class="form-check-label col-md-1 font2" for="radio1">
       <input class="form-check-input" type="radio" name="data" id="IRT" value="IRT">IRT
@@ -60,6 +60,41 @@
   </div>
 </div>
 <div class="borderatas" id="map"></div>
+
+<div class="container" align="center">
+  <button type="button" class="btn btn-outline-danger font2 mt-4" data-toggle="modal" data-target="#myModal">
+    Cara Menggunakan fitur
+  </button>
+</div>
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Cara Menggunakan Fitur Visualisasi</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <ol class="font2 bodyy">
+            <li>Pilih data yang ingin ditampilkan</li>
+            <li>Klik tombol "Pilih Data"</li>
+            <li>Apabila ingin menampilkan data yang lain, lakukan tahap 1 dan 2 lalu dekatkan kursor pada peta untuk merubah warna peta tersebut</li>
+          </ol>
+          <p class="font2 bodyy">Untuk melihat berapa banyak data dapat dilihat pada keterangan di sebelah kanan atas dan kanan bawah</p>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 @endsection
 
 
@@ -101,7 +136,7 @@
     if(data1.checked){
     // console.log(data1.checked)
       info.update = function (props) {
-        this._div.innerHTML = '<h4>Jumlah Kasus KTP di Kabupaten Bandung Tahun 2019</h4>' +  (props ?
+        this._div.innerHTML = '<h4>Rata-Rata Banyaknya Kasus KTP di Kabupaten Bandung <br/>pada Tahun 2019 dengan 2020</h4>' +  (props ?
           '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / Tahun '
           : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
@@ -130,7 +165,7 @@
 
     }else if(data2.checked){
       info.update = function (props) {
-        this._div.innerHTML = '<h4>Jumlah IRT di Kabupaten Bandung Tahun 2019</h4>' +  (props ?
+        this._div.innerHTML = '<h4>Rata-Rata Banyaknya IRT di Kabupaten Bandung <br/>pada Tahun 2019 dengan 2020</h4>' +  (props ?
           '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_IRT + ' Orang / Tahun'
           : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
@@ -158,8 +193,8 @@
       legend.addTo(map);
     }else if(data3.checked){
       info.update = function (props) { 
-        this._div.innerHTML = '<h4>Jumlah Perempuan yang Bekerja <br/> di Kabupaten Bandung Tahun 2019</h4>' +  (props ?
-          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Perempuan_Bekerja + ' Orang'
+        this._div.innerHTML = '<h4>Rata-Rata Banyaknya Perempuan yang Bekerja <br/> di Kabupaten Bandung pada Tahun 2019 dengan 2020</h4>' +  (props ?
+          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Perempuan_Bekerja + ' Orang / Tahun'
           : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
       info.addTo(map); 
@@ -186,15 +221,15 @@
       legend.addTo(map);
     }else if(data4.checked){
       info.update = function (props) { 
-        this._div.innerHTML = '<h4>Jumlah Pernikahan Dini di Kabupaten Bandung Tahun 2019</h4>' +  (props ?
-          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Pernikahan_Dini + ' Orang'
+        this._div.innerHTML = '<h4>Rata-Rata Banyaknya Pernikahan Dini <br/>di Kabupaten Bandung pada Tahun 2019 dengan 2020</h4>' +  (props ?
+          '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Pernikahan_Dini + ' Orang / Tahun'
           : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
       info.addTo(map); 
 
       legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0,  2, 4, 6, 8, 10],
+        grades = [0,  4, 15],
         labels = [],
         from, to;    
 
@@ -236,11 +271,8 @@
           d > 4943  ? '#FC4E2A' :
                 '#FFEDA0';
     }else if(data4.checked){
-      return d > 10 ? '#800026' :
-          d > 8  ? '#BD0026' :
-          d > 6  ? '#FC4E2A' :
-          d > 4   ? '#FEB24C' :
-          d > 2   ? '#FED976' :
+      return d > 15 ? '#800026' :
+          d > 4  ? '#FC4E2A' :
                 '#FFEDA0';
     }
   }
