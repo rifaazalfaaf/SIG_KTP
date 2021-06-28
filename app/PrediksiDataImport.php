@@ -16,11 +16,10 @@ class PrediksiDataImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new PrediksiDataModel([
-            // 'penghasilan'    => $row['penghasilan'], 
             'id_kecamatan'    => $row[0], 
-            'wanita_kerja'    => $row[3], 
-            'ibu_rumah_tangga'    => $row[4], 
-            'pernikahan_dini'    => $row[5], 
+            // 'wanita_kerja'    => $row[3], 
+            'ibu_rumah_tangga'    => $row[3], 
+            // 'pernikahan_dini'    => $row[5], 
         ]);
     }
 }

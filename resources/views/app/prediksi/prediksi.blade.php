@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('title','Visualisasi Data')
+@section('title','Prediksi Data')
 
 @section('styles')
   <style>
@@ -38,14 +38,33 @@
 @endsection
 
 @section('content')
+  @if (Session::has('sukses'))
+    <div class="alert alert-success alert-block">
+      <button type="button" class="close" data-dismiss="alert">×</button> 
+      <strong>{{ Session::get('sukses') }}</strong>
+    </div>
+  @endif
 <div id="map"></div>
 <div class="row center mt-5" >
   {{-- <a class="font2" href="{{url('/input_data')}}" style="text-decoration: none;">
     <button type="button" class="btn btn-outline-danger mr-4"> Input Data</button>
   </a> --}}
-  <button type="button" class="btn btn-outline-danger mr-5 font2" data-toggle="modal" data-target="#importExcel">
+  <button type="button" class="btn btn-outline-danger font2" data-toggle="modal" data-target="#myModal">
+    Cara Menggunakan fitur
+  </button>
+  
+ {{--  <a class="font2" href="https://drive.google.com/file/d/1xOIIsEng4-4G1CFbO6ThUVMIO-RyvI6c/view?usp=sharing" target="_blank" style="text-decoration: none;">
+    <button type="button" class="btn btn-outline-danger ml-4">Download Templat Excel</button>
+  </a> --}}
+
+  <a href="template/data_input.xlsx" download>
+    <button type="button" class="btn btn-outline-danger ml-4"><i class="fa fa-download"></i> Download Templat Excel</button>
+  </a>
+
+  <button type="button" class="btn btn-outline-danger ml-4 font2" data-toggle="modal" data-target="#importExcel">
     Import Excel
   </button>
+
 
   <!-- Import Excel -->
   <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -72,10 +91,66 @@
         </div>
       </form>
     </div>
+  </div>  
+
+
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Cara Menggunakan Fitur Visualisasi</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <ol class="font2 bodyy">
+            <li>Klik tombol "Download Template Excel"</li>
+            <li>Isi data di excel sesuai dengan data yang anda punya</li>
+            <li>Apabila data di excel sudah terisi, Klik tombol "Import Excel"</li>
+            <li>Pilih file yang akan di import</li>
+            <li>Kemudian klik Import, maka akan muncul data perkiraan banyaknya kasus kekerasan terhadap perempuan di Kabupaten Bandung</li>
+          </ol>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
   </div>
-  <a class="font2" href="{{url('/')}}" style="text-decoration: none;">
-    <button type="button" class="btn btn-outline-danger ml-4">Prediksi Data</button>
-  </a>
+</div>
+
+<div class="container mt-2" align="right">
+  
+  
+  <table class='table table-bordered mt-5'>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama Kecamatan</th>
+        <th>Jumlah Ibu Rumah Tangga</th>
+      </tr>
+    </thead>
+    <tbody>
+      @php $i=1 @endphp
+      @foreach($data as $p)
+      <tr>
+        <td>{{ $i++ }}</td>
+        <td>{{$p->nama_kecamatan}}</td>
+        <td>{{$p->ibu_rumah_tangga}}</td>
+        {{-- <td>{{$p->kode_kecamatan}}</td> --}}
+
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
 </div>
 @endsection
 
@@ -84,6 +159,18 @@
 
 <script type="text/javascript" src="js/leaflet.ajax.js"></script>
 <script type="text/javascript">
+
+  <?php 
+    $hasilPred = array();
+    for ($i=0; $i<count($dataPred); $i++) {
+      $hasilPred[$i]=[
+        $hasilPred[$dataPred[$i]->kode_kecamatan]= 
+        $dataPred[$i]->hasil_dari_prediksi,
+      ];
+    }
+  ?>
+ 
+  var KODEKec = <?=json_encode($hasilPred)?>; 
 
   var map = L.map('map').setView([-7.0702032,107.6295788], 10);
 
@@ -96,7 +183,6 @@
     zoomOffset: -1
   }).addTo(map);
 
-
   // control that shows state info on hover
   var info = L.control();
 
@@ -107,8 +193,8 @@
   };
 
   info.update = function (props) {
-    this._div.innerHTML = '<h4>Jumlah Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
-      '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / tahun '
+    this._div.innerHTML = '<h4>Jumlah Perkiraan Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
+      '<b>' + props.WADMKC + '</b><br />' + KODEKec[props.Kode_Kecamatan] + ' Kasus / tahun '
       : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
   };
 
@@ -117,12 +203,9 @@
 
   // get color depending on population density value
   function getColor(d) {
-    return d > 10 ? '#800026' :
-        d > 8  ? '#BD0026' :
-        d > 6  ? '#FC4E2A' :
-        d > 4   ? '#FEB24C' :
-        d > 2   ? '#FED976' :
-              '#FFEDA0';
+    return d > 3 ? '#800026' :
+           d > 1 ? '#FC4E2A' :
+                   '#FFEDA0';
   }
 
   function style(feature) {
@@ -132,7 +215,7 @@
       color: 'white',
       dashArray: '3',
       fillOpacity: 0.7,
-      fillColor: getColor(feature.properties.Jumlah_kasus_2019)
+      fillColor: getColor(KODEKec[feature.properties.Kode_Kecamatan])
     };
   }
 
@@ -153,9 +236,7 @@
     info.update(layer.feature.properties);
   }
 
-  var geojson;
-
-
+ 
   function resetHighlight(e) {
     geojson.resetStyle(e.target);
     info.update();
@@ -172,12 +253,19 @@
       click: zoomToFeature
     });
   }
+   var geojson;
+    
+  var dataKecamatan = <?php echo json_encode($dataPred) ?>;
 
-  geojson = new L.GeoJSON.AJAX('geojson/bandung.geojson', {
-      style: style, 
-      onEachFeature: onEachFeature
-  }).addTo(map);
-  
+  dataKecamatan.forEach(function(itemKecamatan){
+    var url = `http://localhost:8000/geojson/${itemKecamatan.lokasi_kecamatan}`;
+    // console.log(url)
+    geojson = new L.GeoJSON.AJAX(url, {
+        style: style, 
+        onEachFeature: onEachFeature
+    }).addTo(map);
+  });
+
 
   map.attributionControl.addAttribution('Data diambil dari  &copy; <a href="http://census.gov/">Pemerintah Kabupaten Bandung</a>');
 
@@ -187,7 +275,7 @@
   legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-      grades = [0, 2, 4, 6, 8, 10],
+      grades = [0, 1, 3],
       labels = [],
       from, to;
 
