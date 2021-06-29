@@ -34,123 +34,137 @@
       margin-right: 8px;
       opacity: 0.7;
     }
+    .btn-fitur{
+      background-color: #EFA1AF;
+      color : white;
+    }
+    
   </style>
 @endsection
 
 @section('content')
   @if (Session::has('sukses'))
-    <div class="alert alert-success alert-block">
+    <div class="alert alert-success alert-block mb-0">
       <button type="button" class="close" data-dismiss="alert">×</button> 
       <strong>{{ Session::get('sukses') }}</strong>
     </div>
   @endif
+<div class="menunav" style="background-color: #ededed">
+<div class="container" >
+  <div class="row" >
+    <button type="button" class="btn buttonSIG font2 btn-block my-1" data-toggle="modal" data-target="#myModal">
+      Lihat disini untuk cara menggunakan fitur
+    </button>
+  </div>
+</div>
+</div>
+
 <div id="map"></div>
-<div class="row center mt-5" >
-  {{-- <a class="font2" href="{{url('/input_data')}}" style="text-decoration: none;">
-    <button type="button" class="btn btn-outline-danger mr-4"> Input Data</button>
-  </a> --}}
-  <button type="button" class="btn btn-outline-danger font2" data-toggle="modal" data-target="#myModal">
-    Cara Menggunakan fitur
-  </button>
-  
- {{--  <a class="font2" href="https://drive.google.com/file/d/1xOIIsEng4-4G1CFbO6ThUVMIO-RyvI6c/view?usp=sharing" target="_blank" style="text-decoration: none;">
-    <button type="button" class="btn btn-outline-danger ml-4">Download Templat Excel</button>
-  </a> --}}
-
-  <a href="template/data_input.xlsx" download>
-    <button type="button" class="btn btn-outline-danger ml-4"><i class="fa fa-download"></i> Download Templat Excel</button>
-  </a>
-
-  <button type="button" class="btn btn-outline-danger ml-4 font2" data-toggle="modal" data-target="#importExcel">
-    Import Excel
-  </button>
-
-
-  <!-- Import Excel -->
-  <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <form method="post" action="{{ route('import') }}" enctype="multipart/form-data">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title font2" id="exampleModalLabel">Import Excel</h5>
-          </div>
-          <div class="modal-body">
-
-            {{ csrf_field() }}
-
-            <label class="font2">Pilih file excel</label>
-            <div class="form-group">
-              <input type="file" name="file" required="required">
-            </div>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary font2" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-outline-danger font2">Import</button>
-          </div>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-5">
+        <a class="link_download" href="template/data_input.xlsx" download>
+          <button type="button" class="btn btn-outline-danger font2 btn-block"><i class="fa fa-download" style="text-decoration: none !important;"></i> Download Templat Excel</button>
+        </a>
         </div>
-      </form>
+
+        <div class="col-md-3">
+        <button type="button" class="btn btn-outline-danger font2 btn-block" data-toggle="modal" data-target="#importExcel">
+          Import Excel
+        </button>
+        </div>
+      </div>
     </div>
-  </div>  
 
+    <div class="col-md-4" align="right">
+        <form method="POST" action="{{ url('prediksi') }}" >
+          @csrf
+          <button type="button" class="btn btn-outline-danger font2 btn-block">Prediksi Hasil</button>
+        </form>
+    </div>
 
+    <!-- Import Excel -->
+    <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <form method="post" action="{{ route('import') }}" enctype="multipart/form-data">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title font2" id="exampleModalLabel">Import Excel</h5>
+            </div>
+            <div class="modal-body">
 
-  <!-- The Modal -->
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Cara Menggunakan Fitur Visualisasi</h4>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
+              {{ csrf_field() }}
+
+              <label class="font2">Pilih file excel</label>
+              <div class="form-group">
+                <input type="file" name="file" required="required">
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary font2" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-outline-danger font2">Import</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>  
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
         
-        <!-- Modal body -->
-        <div class="modal-body">
-          <ol class="font2 bodyy">
-            <li>Klik tombol "Download Template Excel"</li>
-            <li>Isi data di excel sesuai dengan data yang anda punya</li>
-            <li>Apabila data di excel sudah terisi, Klik tombol "Import Excel"</li>
-            <li>Pilih file yang akan di import</li>
-            <li>Kemudian klik Import, maka akan muncul data perkiraan banyaknya kasus kekerasan terhadap perempuan di Kabupaten Bandung</li>
-          </ol>
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Cara Menggunakan Fitur Prediksi Data</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          
+          <!-- Modal body -->
+          <div class="modal-body">
+            <ol class="font2 bodyy">
+              <li>Klik tombol "Download Template Excel"</li>
+              <li>Isi data di excel sesuai dengan data yang anda punya</li>
+              <li>Apabila data di excel sudah terisi, Klik tombol "Import Excel"</li>
+              <li>Pilih file yang akan di import</li>
+              <li>Kemudian klik "Import"</li>
+              <li>Klik "Prediksi Hasil", untuk menampilkan data perkiraan banyaknya kasus kekerasan terhadap perempuan di Kabupaten Bandung</li>
+            </ol>
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
         </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
       </div>
     </div>
   </div>
-</div>
 
-<div class="container mt-2" align="right">
-  
-  
-  <table class='table table-bordered mt-5'>
-    <thead>
+  {{-- <table class="table table-bordered mt-5">
+    <thead align="center">
       <tr>
         <th>No</th>
         <th>Nama Kecamatan</th>
         <th>Jumlah Ibu Rumah Tangga</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody align="center">
       @php $i=1 @endphp
       @foreach($data as $p)
       <tr>
         <td>{{ $i++ }}</td>
         <td>{{$p->nama_kecamatan}}</td>
         <td>{{$p->ibu_rumah_tangga}}</td>
-        {{-- <td>{{$p->kode_kecamatan}}</td> --}}
+        <td>{{$p->kode_kecamatan}}</td> --}}
 
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+      {{-- </tr> --}}
+      {{-- @endforeach --}}
+    {{-- </tbody> --}}
+  {{-- </table> --}} 
 </div>
 @endsection
 

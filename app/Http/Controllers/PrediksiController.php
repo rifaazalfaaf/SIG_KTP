@@ -19,9 +19,74 @@ class PrediksiController extends Controller
  	public function index()
     {
     // mengambil data dari database
-		$data = DB::table('peta_kecamatan')->join('faktor_ktp', 'faktor_ktp.id_kecamatan', '=','peta_kecamatan.id_kecamatan')->latest()->limit(22)->orderBy('id')->get();
+		$data = DB::table('faktor_ktp')->latest()->limit(22)->orderBy('id')->get();
 		// dd($data);
 		$ret['data'] = $data;
+
+		$data2 = DB::table('peta_kecamatan')->join('hasil_prediksi', 'hasil_prediksi.id_kecamatan', '=','peta_kecamatan.id_kecamatan')->latest()->limit(22)->orderBy('id')->get();
+		
+		// $ret['dataHasil'] = $data2;
+		$ret['dataPred'] = $data2;
+	
+    	return view('app/prediksi/prediksi', $ret);
+    }   
+
+    public function import(Request $request) 
+    {
+    	// validasi
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+		]);
+		
+    	// menangkap file excel
+		$file = $request->file('file');
+
+		// membuat nama file unik
+		$nama_file = rand().$file->getClientOriginalName();
+
+		// upload ke folder file_siswa di dalam folder public
+		$file->move('faktor_KTP',$nama_file);
+
+        
+ 		$array = Excel::toArray(new PrediksiDataModel, public_path('/faktor_KTP/'.$nama_file));
+ 		// $totalarray = array_sum(array_map("count", $array));
+ 		$count = 0;
+		foreach ($array as $type) {
+		    $count+= count($type);
+		}
+ 		// dd($count);
+
+ 		$dataSet=[];
+ 		$i=1;
+ 		// $count = count($array[0]);
+ 		for ($i=1; $i<=count($array[0])-1; $i++) { 
+ 			foreach ($array as $data){
+	 			if($data[$i][0] !== null){
+		 			$dataSet[]=[
+		 				'id_kecamatan' => $data[$i][0],
+		 				'ibu_rumah_tangga' =>$data[$i][3],
+		  			];
+				}
+ 			}
+ 		}
+ 		
+
+ 		// dd($dataSet);
+ 		DB::table('faktor_ktp')->insert($dataSet);
+
+		// notifikasi dengan session
+		Session::flash('sukses','Data Faktor Berhasil Diimport!');
+		
+ 
+		// alihkan halaman kembali
+		return redirect('/prediksi_data');
+    }
+
+    public function prediksi()
+    {
+    	$data = DB::table('peta_kecamatan')->join('faktor_ktp', 'faktor_ktp.id_kecamatan', '=','peta_kecamatan.id_kecamatan')->latest()->limit(22)->orderBy('id')->get();
+		// dd($data);
+		// $ret['data'] = $data;
 
 	// mengambil data banyaknya ibu rumah tangga
     	$irt = array();
@@ -61,90 +126,11 @@ class PrediksiController extends Controller
 	            'hasil_dari_prediksi'=> $hasil[$i][0],
 	        ];
 	    }
-   
+   		
+   		
  		DB::table('hasil_prediksi')->insert($hasilPrediksi);
  		// dd($hasilPrediksi);
-		
-		$data2 = DB::table('peta_kecamatan')->join('hasil_prediksi', 'hasil_prediksi.id_kecamatan', '=','peta_kecamatan.id_kecamatan')->latest()->limit(22)->orderBy('id')->get();
-		
-		// $ret['dataHasil'] = $data2;
-		$ret['dataPred'] = $data2;
 
-
-		// foreach ($data2 as $data) {
-  //    		 $data->kode_kecamatan;
-  //     // $data = count($data);
-  //   	}
-  //   	dd($data);
- 		// dd($data2);
-
-    	return view('app/prediksi/prediksi', $ret);
-    }   
-
-    public function input_data()
-    {
-    	return view('app/prediksi/input_data');
-    } 
-
-    public function import(Request $request) 
-    {
-    	// validasi
-		$this->validate($request, [
-			'file' => 'required|mimes:csv,xls,xlsx'
-		]);
-		
-    	// menangkap file excel
-		$file = $request->file('file');
-
-		// membuat nama file unik
-		$nama_file = rand().$file->getClientOriginalName();
-
-		// upload ke folder file_siswa di dalam folder public
-		$file->move('faktor_KTP',$nama_file);
-
-        // import data
-		// $coba = Excel::import(new PrediksiDataModel, public_path('/faktor_KTP/'.$nama_file));
- 		// var_dump($coba);
-
- 		$array = Excel::toArray(new PrediksiDataModel, public_path('/faktor_KTP/'.$nama_file));
- 		// $totalarray = array_sum(array_map("count", $array));
- 		$count = 0;
-		foreach ($array as $type) {
-		    $count+= count($type);
-		}
- 		// dd($count);
-
- 		$dataSet=[];
- 		$i=1;
- 		// $count = count($array[0]);
- 		for ($i=1; $i<=count($array[0])-1; $i++) { 
- 			foreach ($array as $data){
-	 			if($data[$i][0] !== null){
-		 			$dataSet[]=[
-		 				'id_kecamatan' => $data[$i][0],
-		 				'ibu_rumah_tangga' =>$data[$i][3],
-		 				// 'pernihakan_dini' => $data[$i][5],
-		  			];
-				}
- 			}
- 		}
- 		
-
- 		// dd($dataSet);
- 		DB::table('faktor_ktp')->insert($dataSet);
-
-		// notifikasi dengan session
-		Session::flash('sukses','Data Faktor Berhasil Diimport!');
-		
- 
-		// alihkan halaman kembali
 		return redirect('/prediksi_data');
     }
-
-    // public function prediksi()
-    // {
-    // 	$data = PrediksiDataModel::all();
-
-    // 	dd($data);
-    // }
 }

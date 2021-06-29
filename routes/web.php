@@ -22,4 +22,4 @@ Route::get('/visualisasi_data','VisualisasiController@index');
 Route::get('/prediksi_data','PrediksiController@index');
 // Route::get('/input_data','PrediksiController@input_data');
 Route::post('/import', 'PrediksiController@import')->name('import');
-Route::get('/about','HomeController@about');
+Route::post('/prediksi', 'PrediksiController@prediksi');
