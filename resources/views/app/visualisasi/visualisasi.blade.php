@@ -38,6 +38,15 @@
 @endsection
 
 @section('content')
+<div class="menunav" style="background-color: #ededed">
+<div class="container" >
+  <div class="row" >
+    <button type="button" class="btn buttonSIG font2 btn-block my-1" data-toggle="modal" data-target="#myModal">
+      Lihat disini untuk cara menggunakan fitur
+    </button>
+  </div>
+</div>
+</div>
 <div class="container mb-0">
   <div class="row m-2">
   <div class="form-check-inline col-md-12">
@@ -61,11 +70,6 @@
 </div>
 <div class="borderatas" id="map"></div>
 
-<div class="container" align="center">
-  <button type="button" class="btn btn-outline-danger font2 mt-4" data-toggle="modal" data-target="#myModal">
-    Cara Menggunakan fitur
-  </button>
-</div>
   <!-- The Modal -->
   <div class="modal fade" id="myModal">
     <div class="modal-dialog">
