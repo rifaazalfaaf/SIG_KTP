@@ -8473,10 +8473,10 @@
     "WADMKC" : "Arjasari",
     "Shape_Length" : 0.33253048593475404,
     "Shape_Area" : 0.0051726117695203673,
-    "Jumlah_kasus_2019" : 1,
+    "Jumlah_kasus_2019" : 2,
     "Kode_Kecamatan" : "32.04.16",
-    "Jumlah_IRT" : 25586,
-    "Jumlah_Perempuan_Bekerja" : 3937,
-    "Jumlah_Pernikahan_Dini" : null
+    "Jumlah_IRT" : 25954,
+    "Jumlah_Perempuan_Bekerja" : 4210,
+    "Jumlah_Pernikahan_Dini" : 57
   }
 }
