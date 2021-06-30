@@ -376,7 +376,8 @@
     }).addTo(map);
   });
 
-  map.attributionControl.addAttribution('Data diambil dari  &copy; <a href="http:///">Pemerintah Kabupaten Bandung</a>');
+  map.attributionControl.addAttribution('Data diambil dari Pemda Kabupaten Bandung dan Kemenag Kabupaten Bandung');
+
 
 
 

@@ -281,7 +281,7 @@
   });
 
 
-  map.attributionControl.addAttribution('Data diambil dari  &copy; <a href="http://census.gov/">Pemerintah Kabupaten Bandung</a>');
+  map.attributionControl.addAttribution('Data diambil dari Pemda Kabupaten Bandung dan Kemenag Kabupaten Bandung');
 
 
   var legend = L.control({position: 'bottomright'});
