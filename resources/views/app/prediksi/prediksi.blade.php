@@ -272,7 +272,7 @@
   var dataKecamatan = <?php echo json_encode($dataPred) ?>;
 
   dataKecamatan.forEach(function(itemKecamatan){
-    var url = `http://localhost:8000/geojson/${itemKecamatan.lokasi_kecamatan}`;
+    var url = `/geojson/${itemKecamatan.lokasi_kecamatan}`;
     // console.log(url)
     geojson = new L.GeoJSON.AJAX(url, {
         style: style, 
