@@ -62,9 +62,10 @@
         <ol class="font2 bodyy">
           <li>Pilih data yang ingin ditampilkan</li>
           <li>Klik tombol "Pilih Data"</li>
-          <li>Apabila ingin menampilkan data yang lain, lakukan tahap 1 dan 2 lalu dekatkan kursor pada peta untuk merubah warna peta tersebut</li>
+          <li>Kemudian dekatkan kursor pada setiap kecamatan untuk melihat data yang lebih detil</li>
+          <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3 lalu dekatkan kursor pada peta untuk merubah warna peta tersebut</li>
         </ol>
-        <p class="font2 bodyy">Untuk melihat berapa banyak data dapat dilihat pada keterangan di sebelah kanan atas dan kanan bawah</p>
+        <p class="font2 bodyy">Untuk melihat berapa banyak data dapat dilihat pada keterangan di sebelah kanan atas dan kanan bawah peta</p>
       </div>
       <div class="col-md-6">
         <h5 class="font2 submenu mt-5">Fitur Prediksi Data</h5>
