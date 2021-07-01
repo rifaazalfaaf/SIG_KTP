@@ -113,7 +113,7 @@ class PrediksiController extends Controller
 					$temp += $bobot[$i][$k] * $variabelY[$k][$j];
 				}
 				$hasil[$i][$j] = $temp;
-				$hasil[$i][$j] = round($intercept + ($rhoTopi * $hasil[$i][$j]) + ($betaDua * $irt[$i]));
+				$hasil[$i][$j] = ceil($intercept + ($rhoTopi * $hasil[$i][$j]) + ($betaDua * $irt[$i]));
 			}
 		}
 		// dd($hasil);
