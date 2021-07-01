@@ -71,9 +71,9 @@
         </div>
 
         <div class="col-md-3">
-        <button type="button" class="btn btn-outline-danger font2 btn-block" data-toggle="modal" data-target="#importExcel">
-          Import Excel
-        </button>
+          <button type="button" class="btn btn-outline-danger font2 btn-block" data-toggle="modal" data-target="#importExcel">
+            Import Excel
+          </button>
         </div>
       </div>
     </div>
@@ -81,7 +81,7 @@
     <div class="col-md-4" align="right">
         <form method="POST" action="{{ url('prediksi') }}" >
           @csrf
-          <button type="button" class="btn btn-outline-danger font2 btn-block">Prediksi Hasil</button>
+          <button type="submit" class="btn btn-outline-danger font2 btn-block">Prediksi Hasil</button>
         </form>
     </div>
 
