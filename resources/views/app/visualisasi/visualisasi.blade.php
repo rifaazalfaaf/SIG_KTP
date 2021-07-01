@@ -85,7 +85,7 @@
         <div class="modal-body">
           <ol class="font2 bodyy">
             <li>Pilih data yang ingin ditampilkan</li>
-            <li>Klik tombol "Pilih Data"</li>
+            <li>Klik tombol "Pilih Data" untuk menampilkan legenda</li>
             <li>Kemudian dekatkan kursor pada setiap kecamatan untuk melihat data yang lebih detil</li>
             <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3 lalu dekatkan kursor pada peta untuk merubah warna peta tersebut</li>
           </ol>

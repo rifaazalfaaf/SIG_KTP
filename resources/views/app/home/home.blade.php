@@ -61,7 +61,7 @@
         <p class="font2 bodyy">Fitur visualisasi data merupakan fitur yang menampilkan data yang dianalisis oleh peneliti kedalam peta Kabupaten Bandung. Adapun data yang dipetakan yaitu mengenai kekerasan terhadap perempuan dan faktor-faktor yang mempengaruhi kekerasan tersebut. Langkah-langkah untuk menggunakan fitur viasualisasi data adalah sebagai berikut: </p>
         <ol class="font2 bodyy">
           <li>Pilih data yang ingin ditampilkan</li>
-          <li>Klik tombol "Pilih Data"</li>
+          <li>Klik tombol "Pilih Data" data dan legenda</li>
           <li>Kemudian dekatkan kursor pada setiap kecamatan untuk melihat data yang lebih detil</li>
           <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3 lalu dekatkan kursor pada peta untuk merubah warna peta tersebut</li>
         </ol>
