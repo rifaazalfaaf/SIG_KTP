@@ -85,7 +85,7 @@
         <div class="modal-body">
           <ol class="font2 bodyy">
             <li>Pilih data yang ingin ditampilkan</li>
-            <li>Klik tombol "Pilih Data" untuk menampilkan legenda</li>
+            <li>Klik tombol "Pilih Data" untuk menampilkan data dan legenda</li>
             <li>Kemudian dekatkan kursor pada setiap kecamatan untuk melihat data yang lebih detil</li>
             <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3 lalu dekatkan kursor pada peta untuk merubah warna peta tersebut</li>
           </ol>
@@ -178,7 +178,7 @@
 
       legend.onAdd = function (map) {        
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 24670, 29464],
+        grades = [0, 25054, 29929],
         labels = [],
         from, to;
 
@@ -206,7 +206,7 @@
 
       legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 4943,6668],
+        grades = [0, 5252,7075],
         labels = [],
         from, to;    
 
@@ -234,7 +234,7 @@
 
       legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0,  4, 15],
+        grades = [0,  3, 27],
         labels = [],
         from, to;    
 
@@ -268,16 +268,16 @@
           d > 1   ? '#FC4E2A' :
                 '#FFEDA0';
     }else if(data2.checked){
-      return d > 29464 ? '#800026' :
-          d > 24670  ? '#FC4E2A' :
+      return d > 29929 ? '#800026' :
+          d > 25054  ? '#FC4E2A' :
                 '#FFEDA0';
     }else if(data3.checked){
-      return d > 6668 ? '#800026' :
-          d > 4943  ? '#FC4E2A' :
+      return d > 7075 ? '#800026' :
+          d > 5252  ? '#FC4E2A' :
                 '#FFEDA0';
     }else if(data4.checked){
-      return d > 15 ? '#800026' :
-          d > 4  ? '#FC4E2A' :
+      return d > 27 ? '#800026' :
+          d > 3  ? '#FC4E2A' :
                 '#FFEDA0';
     }
   }
