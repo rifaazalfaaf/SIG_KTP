@@ -127,7 +127,7 @@
           <div class="modal-body">
             <ol class="font2 bodyy">
               <li>Klik tombol "Download Template Excel"</li>
-              <li>Isi data di excel sesuai dengan data yang anda punya</li>
+              <li>Pada file excel, kolom perempuan_bekerja, ibu_rumah_tangga dan penikahan_dini diisi sesuai dengan data yang anda punya</li>
               <li>Apabila data di excel sudah terisi, Klik tombol "Import Excel"</li>
               <li>Pilih file yang akan di import</li>
               <li>Kemudian klik "Import"</li>

@@ -47,7 +47,7 @@
 <div class="container mt-5">
   <div class="mt-5 mb-5 rounded-lg border p-3" style="box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);">
     <h3 class="font2 fitur" align="center">SIG KTP</h3>
-    <p class="font2 bodyy" align="center">SIG KTP adalah sebuah website yang dapat memprediksi dan memetakan jumlah kasus kekerasan terhadap perempuan di Kabupaten Bandung, dengan harapan adanya website ini dapat membantu stackholder dalam menekan banyaknya kasus kekerasan tersebut. Pada proses analisis agar mendapatkan hasil prediksi, terdapat kecamatan dan faktor kekerasan yang didiskualifikasi dikarenakan data yang kurang sesuai, sehingga hasil prediksi yang dikeluarkan oleh website ini hanya 22 kecamatan, dan faktor yang dapat di inputkan hanya ibu rumah tangga saja. </p>
+    <p class="font2 bodyy" align="center">SIG KTP adalah sebuah website yang dapat memprediksi dan memetakan jumlah kasus kekerasan terhadap perempuan di Kabupaten Bandung, dengan harapan adanya website ini dapat membantu stakeholder dalam menekan banyaknya kasus kekerasan tersebut. Pada proses analisis agar mendapatkan hasil prediksi, terdapat kecamatan yang didiskualifikasi dikarenakan data yang kurang sesuai, sehingga hasil prediksi yang dikeluarkan oleh website ini hanya 19 kecamatan dengan faktor yang dapat di inputkan adalah banyaknya perempuan yang bekerja, ibu rumah tangga, dan pernikahan dini dari setiap kecamatannya. </p>
     <hr>
     <h3 class="font2 fitur" align="center">Kekerasan Terhadap Perempuan</h3>
     <p class="font2 bodyy" align="center">Kekerasan merupakan suatu perbuatan yang mengacu pada kontrol, kekerasan, dan pemaksaan, termasuk perilaku seksual, psikologis, fisik, dan ekonomi yang dilakukan oleh seseorang terhadap orang lain. Kekerasan terhadap perempuan adalah suatu tindakan kekerasan berbasis gender yang biasanya dilakukan oleh laki-laki terhadap perempuan. </p>
@@ -72,7 +72,7 @@
         <p class="font2 bodyy">Fitur prediksi data merupakan fitur utama dari SIG KTP. Pada fitur ini user dapat memprediksi dan menampilkan hasil prediksi jumlah kasus kekerasan terhadap perempuan di Kabupaten Bandung. Data yang di Input hanya faktor ibu rumah tangga saja. Langkah-langkah untuk menggunakan fitur prediksi adalah sebagai berikut:</p>
         <ol class="font2 bodyy">
           <li>Klik tombol "Download Template Excel"</li>
-          <li>Isi data di excel sesuai dengan data yang anda punya</li>
+          <li>Pada file excel, kolom perempuan_bekerja, ibu_rumah_tangga dan penikahan_dini diisi sesuai dengan data yang anda punya</li>
           <li>Apabila data di excel sudah terisi, Klik tombol "Import Excel"</li>
           <li>Pilih file yang akan di import</li>
           <li>Kemudian klik "Import"</li>
