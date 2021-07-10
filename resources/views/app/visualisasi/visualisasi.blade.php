@@ -85,7 +85,7 @@
         <div class="modal-body">
           <ol class="font2 bodyy">
             <li>Pilih data yang ingin ditampilkan</li>
-            <li>Klik tombol "Pilih Data" untuk menampilkan data dan legenda</li>
+            <li>Klik tombol "Pilih Data" data dan legenda</li>
             <li>Kemudian dekatkan kursor pada setiap kecamatan untuk melihat data yang lebih detil</li>
             <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3 lalu dekatkan kursor pada peta untuk merubah warna peta tersebut</li>
           </ol>
@@ -141,7 +141,7 @@
     if(data1.checked){
     // console.log(data1.checked)
       info.update = function (props) {
-        this._div.innerHTML = '<h4>Rata-Rata Banyaknya Kasus KTP di Kabupaten Bandung <br/>pada Tahun 2019 dengan 2020</h4>' +  (props ?
+        this._div.innerHTML = '<h4>Banyaknya Kasus KTP di Kabupaten Bandung </br> pada Tahun 2019</h4>' +  (props ?
           '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / Tahun '
           : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
@@ -170,7 +170,7 @@
 
     }else if(data2.checked){
       info.update = function (props) {
-        this._div.innerHTML = '<h4>Rata-Rata Banyaknya IRT di Kabupaten Bandung <br/>pada Tahun 2019 dengan 2020</h4>' +  (props ?
+        this._div.innerHTML = '<h4>Banyaknya IRT di Kabupaten Bandung pada Tahun 2019</h4>' +  (props ?
           '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_IRT + ' Orang / Tahun'
           : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
@@ -178,7 +178,7 @@
 
       legend.onAdd = function (map) {        
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 25054, 29929],
+        grades = [0, 24670, 29464],
         labels = [],
         from, to;
 
@@ -198,7 +198,7 @@
       legend.addTo(map);
     }else if(data3.checked){
       info.update = function (props) { 
-        this._div.innerHTML = '<h4>Rata-Rata Banyaknya Perempuan yang Bekerja <br/> di Kabupaten Bandung pada Tahun 2019 dengan 2020</h4>' +  (props ?
+        this._div.innerHTML = '<h4>Banyaknya Perempuan yang Bekerja <br/> di Kabupaten Bandung pada Tahun 2019</h4>' +  (props ?
           '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Perempuan_Bekerja + ' Orang / Tahun'
           : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
@@ -206,7 +206,7 @@
 
       legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 5252,7075],
+        grades = [0, 4943,6668],
         labels = [],
         from, to;    
 
@@ -226,7 +226,7 @@
       legend.addTo(map);
     }else if(data4.checked){
       info.update = function (props) { 
-        this._div.innerHTML = '<h4>Rata-Rata Banyaknya Pernikahan Dini <br/>di Kabupaten Bandung pada Tahun 2019 dengan 2020</h4>' +  (props ?
+        this._div.innerHTML = '<h4>Banyaknya Pernikahan Dini di Kabupaten Bandung </br> pada Tahun 2019</h4>' +  (props ?
           '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_Pernikahan_Dini + ' Orang / Tahun'
           : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
@@ -234,7 +234,7 @@
 
       legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0,  3, 27],
+        grades = [0,  4, 15],
         labels = [],
         from, to;    
 
@@ -264,21 +264,20 @@
 
     if(data1.checked){
       return d > 3 ? '#800026' :
-          // d > 6  ? '#FC4E2A' :
-          d > 1   ? '#FC4E2A' :
-                '#FFEDA0';
+             d > 1 ? '#FC4E2A' :
+                     '#FFEDA0';
     }else if(data2.checked){
-      return d > 29929 ? '#800026' :
-          d > 25054  ? '#FC4E2A' :
-                '#FFEDA0';
+      return d > 29464 ? '#800026' :
+             d > 24670 ? '#FC4E2A' :
+                         '#FFEDA0';
     }else if(data3.checked){
-      return d > 7075 ? '#800026' :
-          d > 5252  ? '#FC4E2A' :
-                '#FFEDA0';
+      return d > 6668 ? '#800026' :
+             d > 4943 ? '#FC4E2A' :
+                        '#FFEDA0';
     }else if(data4.checked){
-      return d > 27 ? '#800026' :
-          d > 3  ? '#FC4E2A' :
-                '#FFEDA0';
+      return d > 15 ? '#800026' :
+             d > 4  ? '#FC4E2A' :
+                      '#FFEDA0';
     }
   }
 
