@@ -38,68 +38,69 @@
 @endsection
 
 @section('content')
+{{-- button lihat cara menggunakan fitur --}}
 <div class="menunav" style="background-color: #ededed">
-<div class="container" >
-  <div class="row" >
-    <button type="button" class="btn buttonSIG font2 btn-block my-1" data-toggle="modal" data-target="#myModal">
-      Lihat disini untuk cara menggunakan fitur
-    </button>
+  <div class="container" >
+    <div class="row" >
+      <button type="button" class="btn buttonSIG font2 btn-block my-1" data-toggle="modal" data-target="#myModal">
+        Lihat disini untuk cara menggunakan fitur
+      </button>
+    </div>
   </div>
 </div>
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Cara Menggunakan Fitur Visualisasi</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        <ol class="font2 bodyy">
+          <li>Pilih data yang ingin ditampilkan</li>
+          <li>tekan tombol "Pilih Data" data dan legenda</li>
+          <li>Kemudian arahkan kursor pada setiap kecamatan untuk melihat data yang lebih detil</li>
+          <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3 lalu arahkan kursor pada peta untuk merubah warna peta tersebut</li>
+        </ol>
+        <p class="font2 bodyy">Untuk melihat berapa banyak data dapat dilihat pada keterangan di sebelah kanan atas dan kanan bawah peta</p>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      
+    </div>
+  </div>
 </div>
+
 <div class="container mb-0">
   <div class="row m-2">
-  <div class="form-check-inline col-md-12">
-    <label class="form-check-label col-md-3 font2" for="radio1">
-      <input class="form-check-input" type="radio" name="data" id ="jumlah_kasus" value="jumlah_kasus" checked="checked">Kasus Kekerasan 
-    </label>
-    <label class="form-check-label col-md-1 font2" for="radio1">
-      <input class="form-check-input" type="radio" name="data" id="IRT" value="IRT">IRT
-    </label>
-    <label class="form-check-label col-md-3 font2" for="radio1">
-      <input class="form-check-input" type="radio" name="data" id="perempuan_bekerja" value="perempuan_bekerja">Perempuan yang Bekerja
-    </label>  
-    <label class="form-check-label col-md-3 font2" for="radio1">
-      <input class="form-check-input" type="radio" name="data" id="pernikahan_dini" value="pernikahan_dini">Pernikahan Dini
-    </label>  
-    <button type="button" class="btn buttonSIG col-md-2 font2" onclick="displayRadioValue()">
-        Pilih Data
-    </button>
-  </div>
+    <div class="form-check-inline col-md-12">
+      <label class="form-check-label col-md-3 font2" for="radio1">
+        <input class="form-check-input" type="radio" name="data" id ="jumlah_kasus" value="jumlah_kasus" checked="checked">Kasus Kekerasan 
+      </label>
+      <label class="form-check-label col-md-1 font2" for="radio1">
+        <input class="form-check-input" type="radio" name="data" id="IRT" value="IRT">IRT
+      </label>
+      <label class="form-check-label col-md-3 font2" for="radio1">
+        <input class="form-check-input" type="radio" name="data" id="perempuan_bekerja" value="perempuan_bekerja">Perempuan yang Bekerja
+      </label>  
+      <label class="form-check-label col-md-3 font2" for="radio1">
+        <input class="form-check-input" type="radio" name="data" id="pernikahan_dini" value="pernikahan_dini">Pernikahan Dini
+      </label>  
+      <button type="button" class="btn buttonSIG col-md-2 font2" onclick="displayRadioValue()">
+          Pilih Data
+      </button>
+    </div>
   </div>
 </div>
 <div class="borderatas" id="map"></div>
-
-  <!-- The Modal -->
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Cara Menggunakan Fitur Visualisasi</h4>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          <ol class="font2 bodyy">
-            <li>Pilih data yang ingin ditampilkan</li>
-            <li>Klik tombol "Pilih Data" data dan legenda</li>
-            <li>Kemudian dekatkan kursor pada setiap kecamatan untuk melihat data yang lebih detil</li>
-            <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3 lalu dekatkan kursor pada peta untuk merubah warna peta tersebut</li>
-          </ol>
-          <p class="font2 bodyy">Untuk melihat berapa banyak data dapat dilihat pada keterangan di sebelah kanan atas dan kanan bawah peta</p>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
 @endsection
 
 
@@ -133,7 +134,7 @@
 
 
   function displayRadioValue() {
-    var data1 = document.getElementById("jumlah_kasus");
+    var data1 = document.getElementById('jumlah_kasus');
     var data2 = document.getElementById('IRT');
     var data3 = document.getElementById('perempuan_bekerja');
     var data4 = document.getElementById('pernikahan_dini');
@@ -149,7 +150,7 @@
 
       legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 1, 3],
+        grades = [0, 2, 3],
         labels = [],
         from, to;
     
@@ -264,7 +265,7 @@
 
     if(data1.checked){
       return d > 3 ? '#800026' :
-             d > 1 ? '#FC4E2A' :
+             d > 2 ? '#FC4E2A' :
                      '#FFEDA0';
     }else if(data2.checked){
       return d > 29464 ? '#800026' :
