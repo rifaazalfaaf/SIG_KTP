@@ -43,23 +43,62 @@
 @endsection
 
 @section('content')
-  @if (Session::has('sukses'))
-    <div class="alert alert-success alert-block mb-0">
-      <button type="button" class="close" data-dismiss="alert">×</button> 
-      <strong>{{ Session::get('sukses') }}</strong>
-    </div>
-  @endif
+{{-- validasi untuk file selain excel --}}
+@if($errors->any())
+{!!implode('',$errors->all('<div class="alert alert-danger alert-block mb-0"> <button type="button" class="close" data-dismiss="alert">×</button> 
+    <strong>:message</strong> </div>'))!!}
+@endif
+{{-- validasi data masuk ke database --}}
+@if (Session::has('sukses'))
+  <div class="alert alert-success alert-block mb-0">
+    <button type="button" class="close" data-dismiss="alert">×</button> 
+    <strong>{{ Session::get('sukses') }}</strong>
+  </div>
+@endif
+
 <div class="menunav" style="background-color: #ededed">
-<div class="container" >
-  <div class="row" >
-    <button type="button" class="btn buttonSIG font2 btn-block my-1" data-toggle="modal" data-target="#myModal">
-      Lihat disini untuk cara menggunakan fitur
-    </button>
+  <div class="container" >
+    <div class="row" >
+      <button type="button" class="btn buttonSIG font2 btn-block my-1" data-toggle="modal" data-target="#myModal">
+        Lihat disini untuk cara menggunakan fitur
+      </button>
+    </div>
   </div>
 </div>
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Cara Menggunakan Fitur Prediksi Data</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        <ol class="font2 bodyy">
+          <li>tekan tombol "Download Template Excel"</li>
+          <li>Pada file excel, kolom perempuan_bekerja, ibu_rumah_tangga dan penikahan_dini diisi sesuai dengan data yang anda punya</li>
+          <li>Apabila data di excel sudah terisi, tekan tombol "Import Excel"</li>
+          <li>Pilih file yang akan di import</li>
+          <li>Kemudian tekan "Import"</li>
+          <li>tekan "Prediksi Hasil", untuk menampilkan data perkiraan banyaknya kasus kekerasan terhadap perempuan di Kabupaten Bandung</li>
+        </ol>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div id="map"></div>
+
 <div class="container">
   <div class="row mt-5">
     <div class="col-md-8">
@@ -75,6 +114,32 @@
             Import Excel
           </button>
         </div>
+        <!-- Import Excel -->
+        <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <form method="post" action="{{ route('import') }}" enctype="multipart/form-data">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title font2" id="exampleModalLabel">Import Excel</h5>
+                </div>
+                <div class="modal-body">
+
+                  {{ csrf_field() }}
+
+                  <label class="font2">Pilih file excel</label>
+                  <div class="form-group">
+                    <input type="file" name="file" required="required">
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary font2" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-outline-danger font2">Import</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div> 
       </div>
     </div>
 
@@ -84,87 +149,7 @@
           <button type="submit" class="btn btn-outline-danger font2 btn-block">Prediksi Hasil</button>
         </form>
     </div>
-
-    <!-- Import Excel -->
-    <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <form method="post" action="{{ route('import') }}" enctype="multipart/form-data">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title font2" id="exampleModalLabel">Import Excel</h5>
-            </div>
-            <div class="modal-body">
-
-              {{ csrf_field() }}
-
-              <label class="font2">Pilih file excel</label>
-              <div class="form-group">
-                <input type="file" name="file" required="required">
-              </div>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary font2" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-outline-danger font2">Import</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>  
-
-    <!-- The Modal -->
-    <div class="modal fade" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-        
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Cara Menggunakan Fitur Prediksi Data</h4>
-            <button type="button" class="close" data-dismiss="modal">×</button>
-          </div>
-          
-          <!-- Modal body -->
-          <div class="modal-body">
-            <ol class="font2 bodyy">
-              <li>Klik tombol "Download Template Excel"</li>
-              <li>Pada file excel, kolom perempuan_bekerja, ibu_rumah_tangga dan penikahan_dini diisi sesuai dengan data yang anda punya</li>
-              <li>Apabila data di excel sudah terisi, Klik tombol "Import Excel"</li>
-              <li>Pilih file yang akan di import</li>
-              <li>Kemudian klik "Import"</li>
-              <li>Klik "Prediksi Hasil", untuk menampilkan data perkiraan banyaknya kasus kekerasan terhadap perempuan di Kabupaten Bandung</li>
-            </ol>
-          </div>
-          
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-
-  {{-- <table class="table table-bordered mt-5">
-    <thead align="center">
-      <tr>
-        <th>No</th>
-        <th>Nama Kecamatan</th>
-        <th>Jumlah Ibu Rumah Tangga</th>
-      </tr>
-    </thead>
-    <tbody align="center">
-      @php $i=1 @endphp
-      @foreach($data as $p)
-      <tr>
-        <td>{{ $i++ }}</td>
-        <td>{{$p->nama_kecamatan}}</td>
-        <td>{{$p->ibu_rumah_tangga}}</td>
-        <td>{{$p->kode_kecamatan}}</td> --}}
-
-      {{-- </tr> --}}
-      {{-- @endforeach --}}
-    {{-- </tbody> --}}
-  {{-- </table> --}} 
 </div>
 @endsection
 
@@ -207,7 +192,7 @@
   };
 
   info.update = function (props) {
-    this._div.innerHTML = '<h4>Jumlah Perkiraan Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
+    this._div.innerHTML = '<h4>Banyaknya Perkiraan Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
       '<b>' + props.WADMKC + '</b><br />' + KODEKec[props.Kode_Kecamatan] + ' Kasus / tahun '
       : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
   };
@@ -217,9 +202,9 @@
 
   // get color depending on population density value
   function getColor(d) {
-    return d > 3 ? '#800026' :
-           d > 1 ? '#FC4E2A' :
-                   '#FFEDA0';
+    return d > {{$batas_atas}}  ? '#800026' :
+           d > {{$batas_bawah}} ? '#FC4E2A' :
+                                  '#FFEDA0';
   }
 
   function style(feature) {
@@ -289,7 +274,7 @@
   legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-      grades = [0, 1, 3],
+      grades = [0, {{$batas_bawah}}, {{$batas_atas}}],
       labels = [],
       from, to;
 
