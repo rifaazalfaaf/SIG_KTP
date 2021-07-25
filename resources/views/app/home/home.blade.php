@@ -14,7 +14,6 @@
 
 @section('content')
 <div id="home" class="carousel slide" data-ride="carousel">
-
   <!-- Indicators -->
   <ul class="carousel-indicators">
     <li data-target="#home" data-slide-to="0" class="active"></li>
@@ -61,9 +60,9 @@
         <p class="font2 bodyy">Fitur visualisasi data merupakan fitur yang menampilkan data yang dianalisis oleh peneliti kedalam peta Kabupaten Bandung. Adapun data yang dipetakan yaitu mengenai kekerasan terhadap perempuan dan faktor-faktor yang mempengaruhi kekerasan tersebut. Langkah-langkah untuk menggunakan fitur viasualisasi data adalah sebagai berikut: </p>
         <ol class="font2 bodyy">
           <li>Pilih data yang ingin ditampilkan</li>
-          <li>Klik tombol "Pilih Data" data dan legenda</li>
-          <li>Kemudian dekatkan kursor pada setiap kecamatan untuk melihat data yang lebih detil</li>
-          <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3 lalu dekatkan kursor pada peta untuk merubah warna peta tersebut</li>
+          <li>tekan tombol "Pilih Data" data dan legenda</li>
+          <li>Kemudian arahkan kursor pada setiap kecamatan untuk melihat data yang lebih detil</li>
+          <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3 lalu arahkan kursor pada peta untuk merubah warna peta tersebut</li>
         </ol>
         <p class="font2 bodyy">Untuk melihat berapa banyak data dapat dilihat pada keterangan di sebelah kanan atas dan kanan bawah peta</p>
       </div>
@@ -71,12 +70,12 @@
         <h5 class="font2 submenu mt-5">Fitur Prediksi Data</h5>
         <p class="font2 bodyy">Fitur prediksi data merupakan fitur utama dari SIG KTP. Pada fitur ini user dapat memprediksi dan menampilkan hasil prediksi jumlah kasus kekerasan terhadap perempuan di Kabupaten Bandung. Data yang di Input hanya faktor ibu rumah tangga saja. Langkah-langkah untuk menggunakan fitur prediksi adalah sebagai berikut:</p>
         <ol class="font2 bodyy">
-          <li>Klik tombol "Download Template Excel"</li>
+          <li>tekan tombol "Download Template Excel"</li>
           <li>Pada file excel, kolom perempuan_bekerja, ibu_rumah_tangga dan penikahan_dini diisi sesuai dengan data yang anda punya</li>
-          <li>Apabila data di excel sudah terisi, Klik tombol "Import Excel"</li>
+          <li>Apabila data di excel sudah terisi, tekan tombol "Import Excel"</li>
           <li>Pilih file yang akan di import</li>
-          <li>Kemudian klik "Import"</li>
-          <li>Klik "Prediksi Hasil", untuk menampilkan data perkiraan banyaknya kasus kekerasan terhadap perempuan di Kabupaten Bandung</li>
+          <li>Kemudian tekan "Import"</li>
+          <li>tekan "Prediksi Hasil", untuk menampilkan data perkiraan banyaknya kasus kekerasan terhadap perempuan di Kabupaten Bandung</li>
         </ol>
       </div>
     </div>
