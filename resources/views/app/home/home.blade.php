@@ -62,7 +62,7 @@
           <li>Pilih data yang ingin ditampilkan</li>
           <li>tekan tombol "Pilih Data" data dan legenda</li>
           <li>Kemudian arahkan kursor pada setiap kecamatan untuk melihat data yang lebih detil</li>
-          <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3 lalu arahkan kursor pada peta untuk merubah warna peta tersebut</li>
+          <li>Apabila ingin menampilkan data yang lain, lakukan langkah 1,2 dan 3</li>
         </ol>
         <p class="font2 bodyy">Untuk melihat berapa banyak data dapat dilihat pada keterangan di sebelah kanan atas dan kanan bawah peta</p>
       </div>
