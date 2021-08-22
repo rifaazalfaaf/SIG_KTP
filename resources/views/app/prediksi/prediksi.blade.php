@@ -168,19 +168,23 @@
       ];
     }
   ?>
- 
+  
   var KODEKec = <?=json_encode($hasilPred)?>; 
+  
+  var data_map = L.layerGroup();
 
-  var map = L.map('map').setView([-7.0702032,107.6295788], 10);
-
-  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+  var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
       'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    id: 'mapbox/light-v9',
-    tileSize: 512,
-    zoomOffset: -1
-  }).addTo(map);
+      mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+  var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}),
+      streets  = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
+
+  var map = L.map('map', {
+    center: [-7.0702032,107.6295788],
+    zoom: 10,
+    layers: [grayscale, data_map]
+  });
 
   // control that shows state info on hover
   var info = L.control();
@@ -204,14 +208,15 @@
   function getColor(d) {
     return d > {{$batas_atas}}  ? '#800026' :
            d > {{$batas_bawah}} ? '#FC4E2A' :
-                                  '#FFEDA0';
+           d > 0                ? '#FFEDA0':
+                                  '#7df25a';
   }
 
   function style(feature) {
     return {
       weight: 2,
       opacity: 1,
-      color: 'white',
+      color: 'grey',
       dashArray: '3',
       fillOpacity: 0.7,
       fillColor: getColor(KODEKec[feature.properties.Kode_Kecamatan])
@@ -252,7 +257,23 @@
       click: zoomToFeature
     });
   }
-   var geojson;
+  
+  
+ var baseLayers = {
+    "Grayscale": grayscale,
+    "Streets": streets
+  };
+
+  var overlays = {
+    "Kecamatan Tersampel": data_map,
+    "Kecamatan Tidak Tersampel" : new L.GeoJSON.AJAX(["/geojson/bandung.geojson"],{style: style, 
+        onEachFeature: onEachFeature}).addTo(map),
+    
+  };
+
+  L.control.layers(baseLayers, overlays).addTo(map);
+  
+  var geojson;
     
   var dataKecamatan = <?php echo json_encode($dataPred) ?>;
 
@@ -262,7 +283,7 @@
     geojson = new L.GeoJSON.AJAX(url, {
         style: style, 
         onEachFeature: onEachFeature
-    }).addTo(map);
+    }).addTo(data_map);
   });
 
 
@@ -274,7 +295,7 @@
   legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-      grades = [0, {{$batas_bawah}}, {{$batas_atas}}],
+      grades = ['undifined', 1, {{$batas_bawah}}, {{$batas_atas}}],
       labels = [],
       from, to;
 
