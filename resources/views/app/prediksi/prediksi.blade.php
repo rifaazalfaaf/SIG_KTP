@@ -196,7 +196,7 @@
   };
 
   info.update = function (props) {
-    this._div.innerHTML = '<h4>Banyaknya Perkiraan Kasus KTP di Kabupaten Bandung</h4>' +  (props ?
+    this._div.innerHTML = '<h4>Banyaknya Perkiraan Kasus </br>Kekerasan terhadap Perempuan </br>di Kabupaten Bandung</h4>' +  (props ?
       '<b>' + props.WADMKC + '</b><br />' + KODEKec[props.Kode_Kecamatan] + ' Kasus / tahun '
       : 'Dekatkan kursor ke kecamatan tertentu untuk melihat lebih detail');
   };

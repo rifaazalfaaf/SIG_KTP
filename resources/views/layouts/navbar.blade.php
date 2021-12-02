@@ -1,7 +1,7 @@
 <div class="menunav"> 
   <nav class="container navbar navbar-expand-sm mt-1 ">
     <!-- Brand/logo -->
-    <a class="navbar-brand col-md-2 p-0 font1 logo" href="{{url('/')}}">SIG KTP</a>
+    <a class="navbar-brand col-md-2 p-0 font1 logo" href="{{url('/')}}"><img class="logoSIG" src="img/logo.png" alt="logo"></a>
 
     <!-- Links -->
     <ul class="navbar-nav col-md-10 d-flex justify-content-end" >

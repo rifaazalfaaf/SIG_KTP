@@ -30,7 +30,7 @@
     var data4 = document.getElementById('pernikahan_dini');
 
     info.update = function (props) {
-      this._div.innerHTML = '<h4>Banyaknya Kasus KTP di Kabupaten Bandung </br> pada Tahun 2019</h4>' +  (props ?
+      this._div.innerHTML = '<h4>Banyaknya Kasus Kekerasan terhadap Perempuan </br>di Kabupaten Bandung pada Tahun 2019</h4>' +  (props ?
         '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / Tahun '
         : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
     };
@@ -39,7 +39,7 @@
     if(data1.checked){
     // console.log(data1.checked)
       info.update = function (props) {
-        this._div.innerHTML = '<h4>Banyaknya Kasus KTP di Kabupaten Bandung </br> pada Tahun 2019</h4>' +  (props ?
+        this._div.innerHTML = '<h4>Banyaknya Kasus Kekerasan terhadap Perempuan </br>di Kabupaten Bandung pada Tahun 2019</h4>' +  (props ?
           '<b>' + props.WADMKC + '</b><br />' + props.Jumlah_kasus_2019 + ' Kasus / Tahun '
           : 'Dekatkan kursor ke kecamatan tertentu untuk melihat informasi lebih detail');
       };
