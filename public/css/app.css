@@ -44,6 +44,11 @@
 	text-decoration: none;
 }
 
+.logoSIG{
+	height: 40px;
+	width: 40px;
+}
+
 .logo{
 	color: #C4174F;
 }
